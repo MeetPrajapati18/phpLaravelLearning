@@ -9,6 +9,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+//Routes for normal files
 
 // 2nd method to route the page
 Route::view('/home','home');
@@ -19,19 +20,21 @@ Route::view('/home','home');
 
 Route::get('/about/{user}', function($user) {
     $users = ['Meet', 'Prajapati']; // Define the users array
-    
     return view('about', ['user' => $user, 'users' => $users]); // Pass both user and users
 });
-
-Route::view('userForm','userForm');
-Route::post('addUser',[UserController::class,'addUser']);
-
-
 
 Route::get('user',[UserController::class, 'getUser']);
 Route::get('about',[UserController::class,'aboutUser']);
 Route::get('userName/{name}',[UserController::class,'getUserName']);
+Route::post('addUser',[UserController::class,'addUser']);
+
+//Routes for admin
 Route::get('admin',[UserController::class, 'adminLogin']);
+
+//Rotes for Forms
+Route::view('userForm','userForm');
+
+
 
 /**
  * 
@@ -67,6 +70,9 @@ Route::get('admin',[UserController::class, 'adminLogin']);
  */
 
 /**
- * Form and Input Fields
- * 
+ * Commands to push in git
+ * git status
+ * git add .
+ * git commit -m "Your commit message here"
+ * git push origin master
  */

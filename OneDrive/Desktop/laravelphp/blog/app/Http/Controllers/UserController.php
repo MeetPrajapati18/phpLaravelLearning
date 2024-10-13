@@ -26,10 +26,20 @@ class UserController extends Controller
     }
 
     function addUser(Request $request){
-        echo $request->userName;
-        //return $request;
+
+        $request -> validate([
+            'userName' => 'required | min:3 | max:20',
+            'email' => 'required | email',
+            'city' => 'required | min:3 | max:20 | Uppercase',
+        ],[
+            'userName.required' => 'userName cannot be empty',
+            'city.Uppercase' => 'City name must be written in all uppercase characters.',
+        ]);
+
+        //echo $request->userName;//if we want to print only one entity.
+        //print_r($request -> skill); // to get the whole array in request
+        return $request;
     }
-    
 
     //for file which is inside the sub folder
     //to check if file exists or not
