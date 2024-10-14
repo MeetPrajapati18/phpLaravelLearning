@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 //to call controller
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\StudentController;
 
 
 Route::get('/', function () {
@@ -17,9 +18,26 @@ Route::get('/', function () {
 //Route::redirect('/home','/');
 //Named Route
 Route::view('home/profile/user','home') -> name('hm');
-Route::get('show', [HomeController::class,'show']);
+// Route::get('show', [HomeController::class,'show']);
 // Route::view('home/{name}','home') -> name('user');
 // Route::get('user', [HomeController::class,'user']);
+Route::prefix('student') -> group(function(){ //we also can do double prefix like student/india
+    Route::view('/home','home');
+    Route::get('/show', [HomeController::class, 'show']);
+    Route::get('/add', [HomeController::class, 'add']);
+});
+
+//Route for StudentController
+//-----------------------------------------------
+Route::controller(StudentController::class)->group(function(){ //prefix
+    Route::get('show', 'show');
+    Route::get('add', 'add');
+    Route::get('delete', 'delete');
+    Route::get('aboutStudent/{name}','aboutStudent');
+});
+
+//Routes for Middleware
+//-----------------------------------------------
 
 
 //Routes for about
@@ -33,23 +51,18 @@ Route::get('/about/{user}', function($user) {
 
 //Routes for user
 //------------------------------------------------------------------
-// Route::get('user',[UserController::class, 'getUser']);
-
+Route::get('user',[UserController::class, 'getUser']);
 
 //Rotes for Forms
 //-------------------------------------------------------------------
 Route::view('userForm','userForm');
 Route::post('addUser',[UserController::class,'addUser']);
 
-
-//Route::view('userName/{user}','about');
-
 //Routes for admin
 //----------------------------------------------------------------------
-// Route::get('admin',[UserController::class, 'adminLogin']);
+Route::get('admin',[UserController::class, 'adminLogin']);
 
 /**
- * 
  * View in Laravel
  * 
  * View is the folder which contains the UI part of the project
@@ -71,7 +84,6 @@ Route::post('addUser',[UserController::class,'addUser']);
  * When one view is included in another view then included view is consider as a sub view.
  * we create it same as we create view 
  * Command to create Sub View : php artisan make:view folderName.fileName -->> if we want to  create it in any folder otherwise fileName is enough
- * 
  */
 
 /**
@@ -91,5 +103,15 @@ Route::post('addUser',[UserController::class,'addUser']);
 
 /**
  * Prefix
- * 
+ * a prefix is a feature used to group routes under a common URI path segment. It allows you to prepend a certain string to multiple routes, which helps to organize routes better, especially when dealing with modular or grouped resources like admin panels or API routes.
+ */
+
+/**
+ * Middleware
+ * Middleware is the layer between user and application
+ * here we can check condition or filter user requests
+ * if condition pass request will reach to middleware
+ * Global Middleware: Applied to every request in the application.
+ * Route Middleware: Applied to specific routes.
+ * Group Middleware: Applied to a group of routes.
  */
