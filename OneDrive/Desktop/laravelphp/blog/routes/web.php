@@ -3,38 +3,50 @@
 use Illuminate\Support\Facades\Route;
 //to call controller
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\HomeController;
 
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-//Routes for normal files
-
-// 2nd method to route the page
-Route::view('/home','home');
-//Route::view('userName/{user}','about');
-
+//Routes for Home
+//---------------------------------------------------------------
+// Route::view('/home','home');
 //how to do redirect
 //Route::redirect('/home','/');
+//Named Route
+Route::view('home/profile/user','home') -> name('hm');
+Route::get('show', [HomeController::class,'show']);
+// Route::view('home/{name}','home') -> name('user');
+// Route::get('user', [HomeController::class,'user']);
 
+
+//Routes for about
+//------------------------------------------------------------------
+Route::get('userName/{name}',[UserController::class,'getUserName']);
 Route::get('/about/{user}', function($user) {
     $users = ['Meet', 'Prajapati']; // Define the users array
     return view('about', ['user' => $user, 'users' => $users]); // Pass both user and users
 });
+// Route::get('about',[UserController::class,'aboutUser']);
 
-Route::get('user',[UserController::class, 'getUser']);
-Route::get('about',[UserController::class,'aboutUser']);
-Route::get('userName/{name}',[UserController::class,'getUserName']);
-Route::post('addUser',[UserController::class,'addUser']);
+//Routes for user
+//------------------------------------------------------------------
+// Route::get('user',[UserController::class, 'getUser']);
 
-//Routes for admin
-Route::get('admin',[UserController::class, 'adminLogin']);
 
 //Rotes for Forms
+//-------------------------------------------------------------------
 Route::view('userForm','userForm');
+Route::post('addUser',[UserController::class,'addUser']);
 
 
+//Route::view('userName/{user}','about');
+
+//Routes for admin
+//----------------------------------------------------------------------
+// Route::get('admin',[UserController::class, 'adminLogin']);
 
 /**
  * 
@@ -75,4 +87,9 @@ Route::view('userForm','userForm');
  * git add .
  * git commit -m "Your commit message here"
  * git push origin master
+ */
+
+/**
+ * Prefix
+ * 
  */

@@ -1,12 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+<div>
     <h1>Hello this is Meet Prajapati</h1>
-</body>
-</html>
+    <h3>{{URL::previous()}}</h3>
+
+    <!-- Use Named Route  -->
+    <a href="{{route('hm')}}">Go to home Page</a>
+</div>
 

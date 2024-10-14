@@ -26,7 +26,6 @@ class UserController extends Controller
     }
 
     function addUser(Request $request){
-
         $request -> validate([
             'userName' => 'required | min:3 | max:20',
             'email' => 'required | email',
