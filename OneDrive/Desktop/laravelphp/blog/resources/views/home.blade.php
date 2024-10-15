@@ -1,6 +1,6 @@
 <h1>Hello Laravel</h1>
 
-<a href="/user">User Page</a>
+<a href="user">User Page</a>
 <!-- <a href="{{URL::to('user')}}">User Page</a> -->
 <br>
 <a href="{{URL::to('about',['Meet'])}}">About Page</a>

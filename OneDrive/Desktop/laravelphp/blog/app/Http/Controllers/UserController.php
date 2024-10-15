@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
 
 class UserController extends Controller
@@ -13,8 +14,10 @@ class UserController extends Controller
     }
 
     //to return the text direct 
-    function aboutUser(){
-        return "Hello this is Meet Prajapati, I am Good Boy and i am 19.";
+    function users(){
+        //return "Hello thi is Meet Prajapati, I am Good Boy and i am 19.";
+        $users = DB::select('select * from users');
+        return view('users',['users' => $users]);
     }
 
     //for get request

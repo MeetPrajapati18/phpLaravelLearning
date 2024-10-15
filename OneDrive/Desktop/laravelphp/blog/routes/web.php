@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\StudentController;
+use App\Http\Middleware\AgeCheck;
+use App\Http\Middleware\CountryCheck;
 
 
 Route::get('/', function () {
@@ -26,6 +28,7 @@ Route::prefix('student') -> group(function(){ //we also can do double prefix lik
     Route::get('/show', [HomeController::class, 'show']);
     Route::get('/add', [HomeController::class, 'add']);
 });
+//Route::view('home','home')->middleware('check1');
 
 //Route for StudentController
 //-----------------------------------------------
@@ -38,29 +41,46 @@ Route::controller(StudentController::class)->group(function(){ //prefix
 
 //Routes for Middleware
 //-----------------------------------------------
-
+// Route::middleware('check1')->group(function(){
+//     Route::view('home','home');
+//     Route::get('userName/{name}',[UserController::class,'getUserName']);
+//     Route::get('/about/{user}', function($user) {
+//         $users = ['Meet', 'Prajapati']; // Define the users array
+//         return view('about', ['user' => $user, 'users' => $users]); // Pass both user and users
+//     });
+//     Route::get('user',[UserController::class, 'getUser']);
+//     Route::view('userForm','userForm');
+//     Route::post('addUser',[UserController::class,'addUser']);
+//     Route::get('admin',[UserController::class, 'adminLogin']);
+// });
+Route::view('home','home')->middleware([AgeCheck::class, CountryCheck::class]);
 
 //Routes for about
 //------------------------------------------------------------------
-Route::get('userName/{name}',[UserController::class,'getUserName']);
-Route::get('/about/{user}', function($user) {
-    $users = ['Meet', 'Prajapati']; // Define the users array
-    return view('about', ['user' => $user, 'users' => $users]); // Pass both user and users
-});
-// Route::get('about',[UserController::class,'aboutUser']);
-
-//Routes for user
-//------------------------------------------------------------------
-Route::get('user',[UserController::class, 'getUser']);
+// Route::get('userName/{name}',[UserController::class,'getUserName']);
+// Route::get('/about/{user}', function($user) {
+//     $users = ['Meet', 'Prajapati']; // Define the users array
+//     return view('about', ['user' => $user, 'users' => $users]); // Pass both user and users
+// });
+// Route::get('aboutUser',[UserController::class,'aboutUser']);
 
 //Rotes for Forms
 //-------------------------------------------------------------------
-Route::view('userForm','userForm');
-Route::post('addUser',[UserController::class,'addUser']);
+// Route::view('userForm','userForm');
+// Route::post('addUser',[UserController::class,'addUser']);
 
 //Routes for admin
 //----------------------------------------------------------------------
-Route::get('admin',[UserController::class, 'adminLogin']);
+// Route::get('admin',[UserController::class, 'adminLogin']);
+
+//Routes for users
+//----------------------------------------------------------------------
+Route::get('users',[UserController::class, 'users']);
+
+
+//Routes for student controller
+//-----------------------------------------------------------------------
+Route::get('student',[StudentController::class, 'getStudent']);
 
 /**
  * View in Laravel
