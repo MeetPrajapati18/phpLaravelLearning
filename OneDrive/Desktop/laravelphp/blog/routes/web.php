@@ -5,9 +5,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\UsersController;
+
+//to import Middleware
 use App\Http\Middleware\AgeCheck;
 use App\Http\Middleware\CountryCheck;
-
 
 Route::get('/', function () {
     return view('welcome');
@@ -75,12 +77,16 @@ Route::view('home','home')->middleware([AgeCheck::class, CountryCheck::class]);
 
 //Routes for users
 //----------------------------------------------------------------------
-Route::get('users',[UserController::class, 'users']);
+//Route::get('users',[UserController::class, 'users']);
 
-
-//Routes for student controller
-//-----------------------------------------------------------------------
+// Routes for student controller
+// -----------------------------------------------------------------------
 Route::get('student',[StudentController::class, 'getStudent']);
+
+//ROute for userController and UsersController
+//------------------------------------------------------------------------
+// Route::get('users',[UserController::class, 'getUser']);
+Route::get('users', [UsersController::class, 'queries']);
 
 /**
  * View in Laravel

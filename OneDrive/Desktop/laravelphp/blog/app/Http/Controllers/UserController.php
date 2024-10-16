@@ -4,13 +4,18 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Http;
+
 
 class UserController extends Controller
 {
     //to return the file
     function getUser(){
-        //return "Meet Prajapati";
-        return view('user');
+        return "Meet Prajapati";
+        //$response = Http::get('https://jsonplaceholder.typicode.com/users/1');
+        //return $response -> status(); //to print the status
+        //return $response -> body(); //to print the body
+        //return view('user',['data'=>json_decode($response)]);
     }
 
     //to return the text direct 
